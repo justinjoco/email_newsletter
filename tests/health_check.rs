@@ -2,7 +2,8 @@ use std::net::TcpListener;
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("listener should have address binded");
     let port = listener.local_addr().unwrap().port();
-    let server = zero2prod::startup::run(listener).expect("server should have address binded");
+    let server =
+        email_newsletter::startup::run(listener).expect("server should have address binded");
 
     let _ = tokio::spawn(server);
     format!("http://127.0.0.1:{}", port)
