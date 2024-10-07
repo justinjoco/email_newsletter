@@ -1,5 +1,5 @@
-pub use crate::routes::health_check::health_check;
-pub use crate::routes::subscriptions::subscribe;
+pub use crate::routes::health_check;
+pub use crate::routes::subscribe;
 
 use std::net::TcpListener;
 use actix_web::dev::Server;
