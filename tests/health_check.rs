@@ -2,10 +2,10 @@ use std::net::TcpListener;
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("listener should have address binded");
     let port = listener.local_addr().unwrap().port();
-    let server = zero2prod::run(listener).expect("server should have address binded");
+    let server = zero2prod::startup::run(listener).expect("server should have address binded");
 
     let _ = tokio::spawn(server);
-   format!("http://127.0.0.1:{}", port)
+    format!("http://127.0.0.1:{}", port)
 }
 #[tokio::test]
 async fn test_health_check() {
@@ -23,7 +23,7 @@ async fn test_health_check() {
 }
 
 #[tokio::test]
-async fn test_subscribe_returns_200_for_valid_form_data(){
+async fn test_subscribe_returns_200_for_valid_form_data() {
     let address = spawn_app();
     let client = reqwest::Client::new();
 
@@ -40,10 +40,14 @@ async fn test_subscribe_returns_200_for_valid_form_data(){
 }
 
 #[tokio::test]
-async fn test_subscribe_returns_400_for_missing_data(){
+async fn test_subscribe_returns_400_for_missing_data() {
     let address = spawn_app();
     let client = reqwest::Client::new();
-    let test_cases = vec![("name=le%20guin", "missing the email"), ("email=ursula_le_guin", "missing the name"), ("", "missing both name and email")];
+    let test_cases = vec![
+        ("name=le%20guin", "missing the email"),
+        ("email=ursula_le_guin", "missing the name"),
+        ("", "missing both name and email"),
+    ];
 
     for (invalid_body, error_message) in test_cases {
         let response = client
@@ -54,8 +58,11 @@ async fn test_subscribe_returns_400_for_missing_data(){
             .await
             .expect("Should execute request");
 
-        assert_eq!(400, response.status().as_u16(), "The API didn't fail with 400 bad request when the payload was {}.", error_message);
+        assert_eq!(
+            400,
+            response.status().as_u16(),
+            "The API didn't fail with 400 bad request when the payload was {}.",
+            error_message
+        );
     }
 }
-
-
