@@ -8,6 +8,6 @@ services:
     volumes:
       - ./migrations:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=app
       - POSTGRES_DB=newsletter
