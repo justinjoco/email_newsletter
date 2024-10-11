@@ -1,9 +1,0 @@
-CREATE USER app WITH PASSWORD 'secret';
-ALTER USER app CREATEDB;
-
-CREATE TABLE IF NOT EXISTS "subscriptions" (
-    id UUID PRIMARY KEY,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL,
-    subscribed_at TIMESTAMPTZ NOT NULL
-);
