@@ -1,6 +1,6 @@
-use std::net::TcpListener;
-use sqlx::{PgConnection, Connection};
 use email_newsletter::configuration::get_configuration;
+use sqlx::{Connection, PgConnection};
+use std::net::TcpListener;
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("listener should have address binded");
     let port = listener.local_addr().unwrap().port();
@@ -32,7 +32,7 @@ async fn test_subscribe_returns_200_for_valid_form_data() {
     let config = get_configuration().expect("configuration should be valid");
     let db_url = config.database.connection_string();
     let mut connection = PgConnection::connect(&db_url)
-    .await
+        .await
         .expect("connection should be created");
 
     let body = "_name=le%20guin&_email=ursula_le_guin%40gmail.com";
