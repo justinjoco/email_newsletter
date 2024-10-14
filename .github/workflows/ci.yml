@@ -18,9 +18,9 @@ jobs:
         # Docker Hub image
         image: postgres:16
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: postgres
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: newsletter
         ports:
           - 5432:5432
     steps:
