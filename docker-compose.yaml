@@ -2,12 +2,12 @@ name: email_newsletter
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: postgres
+    container_name: db
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./migrations:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=app
       - POSTGRES_DB=newsletter
