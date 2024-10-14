@@ -37,7 +37,7 @@ jobs:
           --locked
       - name: Migrate database
         run: |
-          SKIP_DOCKER=true ./scripts/init_db.sh
+          ./scripts/init_db.sh
       - run: cargo clippy -- -D warnings
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
