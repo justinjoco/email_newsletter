@@ -35,10 +35,10 @@ jobs:
           --features ${{ env.SQLX_FEATURES }}
           --no-default-features
           --locked
-      - run: cargo clippy -- -D warnings
       - name: Migrate database
         run: |
           SKIP_DOCKER=true ./scripts/init_db.sh
+      - run: cargo clippy -- -D warnings
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
       - name: Generate code coverage
